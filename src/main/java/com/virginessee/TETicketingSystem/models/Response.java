@@ -1,4 +1,4 @@
-package models;
+package com.virginessee.TETicketingSystem.models;
 
 public class Response {
     private Long id;

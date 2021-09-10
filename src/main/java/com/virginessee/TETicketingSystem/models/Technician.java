@@ -1,6 +1,6 @@
-package models;
+package com.virginessee.TETicketingSystem.models;
 
-public class Customer {
+public class Technician {
     private Long id;
     private Long departmentId;
     private Long userId;
@@ -8,7 +8,7 @@ public class Customer {
     private String name;
     private String departmentName;
 
-    public Customer() {
+    public Technician() {
 
     }
 
