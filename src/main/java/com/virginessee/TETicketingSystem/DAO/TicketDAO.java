@@ -20,7 +20,7 @@ public interface TicketDAO {
 
     public List<Ticket> getTicketsByCaseId(Long id);
 
-    public Ticket createTicket(Ticket ticket);
+    public void createTicket(Ticket ticket); //9.16.21 changed to void
 
     public void updateTicket(Ticket ticket);
 

@@ -1,5 +1,7 @@
 package com.virginessee.TETicketingSystem.models;
 
+import java.time.LocalDate;
+
 public class Ticket {
     private Long id;
 
@@ -17,6 +19,8 @@ public class Ticket {
     // might want a status description instead of just a status id, remove whichever one we don't use. Same with type.
     private String type;
     private String status;
+    // are we omitting this or no due to complexity? 9.16.21
+    private LocalDate timestamp;
 
     public Ticket() {
 
@@ -108,5 +112,13 @@ public class Ticket {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public LocalDate getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDate timestamp) {
+        this.timestamp = timestamp;
     }
 }
