@@ -14,6 +14,8 @@ public interface TicketDAO {
 
     public List<Ticket> getTicketsByDepartmentId(Long id);
 
+    public List<Ticket> getTicketsByTechnicianId(Long id); // pending technician id added
+
     public List<Ticket> getTicketsByStatus(Long id);
 
     public List<Ticket> getTicketsByTypeId(Long id);

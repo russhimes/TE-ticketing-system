@@ -67,6 +67,11 @@ public class JDBCTicketDao implements TicketDAO {
     }
 
     @Override
+    public List<Ticket> getTicketsByTechnicianId(Long id) {
+        return null; // pending adding the technician id to the ticket model
+    }
+
+    @Override
     public List<Ticket> getTicketsByStatus(Long id) {
         List<Ticket> ticketsByStatusId= new ArrayList<>();
 

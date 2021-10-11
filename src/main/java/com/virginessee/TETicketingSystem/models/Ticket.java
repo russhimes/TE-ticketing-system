@@ -10,6 +10,7 @@ public class Ticket {
     private Long statusId;
     private Long caseId;
     private Long departmentId;
+    // add technician id instead of department id?
 
     private String title;
     private String description;
