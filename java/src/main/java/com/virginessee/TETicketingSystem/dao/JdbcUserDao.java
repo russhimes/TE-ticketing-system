@@ -24,12 +24,12 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public int findIdByUsername(String username) {
-        return jdbcTemplate.queryForObject("select user_id from users where username = ?", int.class, username);
+        return jdbcTemplate.queryForObject("select id from users where username = ?", int.class, username);
     }
 
 	@Override
 	public User getUserById(Long userId) {
-		String sql = "SELECT * FROM users WHERE user_id = ?";
+		String sql = "SELECT * FROM sys_user WHERE id = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
 		if(results.next()) {
 			return mapRowToUser(results);
@@ -41,7 +41,7 @@ public class JdbcUserDao implements UserDao {
     @Override
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
-        String sql = "select * from users";
+        String sql = "select * from sys_user";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while(results.next()) {
@@ -67,12 +67,12 @@ public class JdbcUserDao implements UserDao {
         boolean userCreated = false;
 
         // create user
-        String insertUser = "insert into users (username,password_hash,role) values(?,?,?)";
+        String insertUser = "insert into sys_user (username,password_hash,role) values(?,?,?); SELECT FROM sys_user LAST_INSERT_ID();";
         String password_hash = new BCryptPasswordEncoder().encode(password);
         String ssRole = "ROLE_" + role.toUpperCase();
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
-        String id_column = "user_id";
+        String id_column = "id";
         userCreated = jdbcTemplate.update(con -> {
                     PreparedStatement ps = con.prepareStatement(insertUser, new String[]{id_column});
                     ps.setString(1, username);
@@ -81,14 +81,15 @@ public class JdbcUserDao implements UserDao {
                     return ps;
                 }
                 , keyHolder) == 1;
-        int newUserId = (int) keyHolder.getKeys().get(id_column);
+//        int newUserId = (int) keyHolder.getKeys().get(id_column);
+//        This is a fun little joke that Tech Elevator played on god/our starting capstone code. We will eventually solve this mystery, even if it's four years from now at 2 AM when we wake up in a cold sweat.
 
         return userCreated;
     }
 
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
-        user.setId(rs.getLong("user_id"));
+        user.setId(rs.getLong("id"));
         user.setUsername(rs.getString("username"));
         user.setPassword(rs.getString("password_hash"));
         user.setAuthorities(rs.getString("role"));
